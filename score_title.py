@@ -7,6 +7,7 @@ import argparse
 import re
 from pathlib import Path
 
+# Common filler that wastes title space for digital downloads
 FILLER = {"the", "a", "an", "and", "or", "for", "with", "to", "of", "in"}
 
 
@@ -20,6 +21,7 @@ def score_title(title: str) -> dict:
     score = 100
     notes: list[str] = []
 
+    # Length band ~40–140 chars often workable; Etsy allows more — keep readable
     if length < 30:
         score -= 25
         notes.append("Too short — add primary keyword + format (PDF/Notion)")
@@ -52,6 +54,7 @@ def score_title(title: str) -> dict:
         score -= 5
         notes.append("Go easy on punctuation hype")
 
+    # Keyword density: unique words ratio
     if words:
         uniqueness = len(set(lower_words)) / len(lower_words)
         if uniqueness < 0.6:
